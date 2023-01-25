@@ -1,0 +1,13 @@
+.active-nav--item {
+  position: relative;
+  color: #fff;
+}
+.active-nav--item::after {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 4px;
+  background-color: #e8282b;
+  bottom: -10px;
+  left: 15px;
+}

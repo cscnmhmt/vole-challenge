@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Source Sans Pro', sans-serif;
+    @apply text-ink-darkest;
+  }
+
+  h2 {
+    @apply text-3xl font-bold leading-10;
+  }
+
+  h3 {
+    @apply text-2xl font-bold leading-9;
+  }
+
+  h4 {
+    @apply text-xl font-bold leading-8;
+  }
+}
+
+@layer components {
+  .fs-lg {
+    @apply text-lg;
+  }
+  .fs-base {
+    @apply text-base;
+  }
+  .fs-sm {
+    @apply text-sm;
+  }
+  .fs-xs {
+    @apply text-xs;
+  }
+  .fw-400 {
+    @apply font-normal;
+  }
+  .fw-600 {
+    @apply font-semi-bold;
+  }
+  .fw-700 {
+    @apply font-bold;
+  }
+  .lh-10 {
+    @apply leading-10;
+  }
+  .lh-9 {
+    @apply leading-9;
+  }
+  .lh-8 {
+    @apply leading-8;
+  }
+  .lh-7 {
+    @apply leading-7;
+  }
+  .lh-6 {
+    @apply leading-6;
+  }
+  .lh-5 {
+    @apply leading-5;
+  }
+  .lh-4 {
+    @apply leading-4;
+  }
+  .lh-3 {
+    @apply leading-3;
+  }
+  .lh-2 {
+    @apply leading-2;
+  }
+  .lh-1 {
+    @apply leading-1;
+  }
+  .icon {
+    @apply w-[16px] h-[16px];
+  }
+  :is(.close-btn, .btn-primary, .btn-secondary, .btn-light) {
+    @apply flex items-center justify-center font-semi-bold text-base rounded-base;
+  }
+  .close-btn {
+    @apply bg-ink-darkest/[.3] w-12 h-12 hover:opacity-80;
+  }
+  .btn-primary {
+    @apply bg-red-base w-[174px] h-12 text-sky-white hover:opacity-80;
+  }
+  .btn-secondary {
+    @apply bg-transparent w-[91px] h-8 border border-red-base text-red-base hover:opacity-80;
+  }
+  .btn-light {
+    @apply bg-transparent border border-transparent w-[174px] h-12 text-red-base hover:opacity-80;
+  }
+  .pagination {
+    @apply flex items-center justify-between gap-2;
+  }
+  .pagination-item {
+    @apply flex items-center justify-center bg-sky-base font-bold text-sky-white text-lg rounded-full w-8 h-8;
+  }
+  .pagination-item--active {
+    @apply flex items-center justify-center bg-red-base font-bold text-sky-white text-lg rounded-full w-8 h-8;
+  }
+  .icon-pagination {
+    @apply;
+  }
+}
