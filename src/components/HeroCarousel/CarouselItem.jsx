@@ -1,7 +1,6 @@
 import React from 'react';
 
 const CarouselItem = function ({ item }) {
-  console.log(item);
   return (
     <div>
       <div className="mb-[30px] flex items-center justify-between px-[287px]">

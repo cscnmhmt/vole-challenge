@@ -1,26 +1,37 @@
 import React, { useState } from 'react';
 import downArrowIcon from '/down-arrow-icon.svg';
 import MultiRangeSlider from 'multi-range-slider-react';
+import Pagination from './Pagination';
 
-import leftArrowIcon from '/left-arrow-icon.svg';
-import rightArrowIcon from '/right-arrow-icon.svg';
-import playerPhoto from '/kim-min-jae.png';
 import '../../style/range-slider.css';
+import Modal from './Modal';
 
-const Market = function () {
+const Market = function ({ cards }) {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('100');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [cardDetail, setCardDetail] = useState('');
 
   const handleInput = (e) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+  const handleModal = (id) => {
+    setModalOpen(true);
+    document.body.style.overflowY = 'hidden';
+    const clickedCard = cards.filter((card) => card.id === id);
+    setCardDetail(clickedCard);
+  };
+  const closeModal = () => {
+    document.body.style.overflowY = 'scroll';
+    setModalOpen(false);
+  };
 
   return (
-    <div>
+    <div className="relative">
       <div className="mx-10 mb-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
         <h5 className="text-lg font-bold uppercase leading-7">Market</h5>
-        <div className="flex gap-6">
+        <div className="flex items-start gap-6">
           {/* filter */}
           <div className="flex gap-4">
             <div className="flex min-w-[200px] flex-col rounded-base bg-sky-white px-6 py-2">
@@ -159,33 +170,33 @@ const Market = function () {
               </div>
             </div>
           </div>
-          {/* my cards */}
-          <div className="flex gap-4">
-            <a
-              href="#"
-              className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
-            >
-              <img src={playerPhoto} className="w-full" alt="" />
-              <div className="flex items-center justify-center gap-4 px-4 pb-5">
-                <span className="text-base font-bold leading-6">€ 20.00</span>
-                <button className="btn-secondary">Buy</button>
-              </div>
-            </a>
+          <div className="flex cursor-pointer flex-wrap gap-4">
+            {Array.isArray(cards)
+              ? cards.map((card) => (
+                  <div
+                    href="#"
+                    key={card.id}
+                    className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
+                    onClick={() => handleModal(card.id)}
+                  >
+                    <img src={card.photoUrl} className="w-full" alt="" />
+                    <div className="flex items-center justify-center gap-4 px-4 pb-5">
+                      <span className="text-base font-bold leading-6">
+                        € {card.price}
+                      </span>
+                      <button className="btn-secondary">Buy</button>
+                    </div>
+                  </div>
+                ))
+              : ''}
           </div>
         </div>
-        {/* pagination */}
-        <div className="flex w-full justify-center gap-4 rounded-base bg-sky-lighter p-4">
-          <div className="pagination">
-            <button className="mr-5">
-              <img src={leftArrowIcon} alt="" />
-            </button>
-            <button className="pagination-item--active">1</button>
-            <button className="pagination-item">2</button>
-            <button className="ml-5">
-              <img src={rightArrowIcon} alt="" />
-            </button>
-          </div>
-        </div>
+        {isModalOpen ? (
+          <Modal handleModalClose={closeModal} cardDetail={cardDetail} />
+        ) : (
+          ''
+        )}
+        <Pagination />
       </div>
     </div>
   );

@@ -2,17 +2,31 @@ import React, { useState } from 'react';
 import downArrowIcon from '/down-arrow-icon.svg';
 import MultiRangeSlider from 'multi-range-slider-react';
 
-import playerPhoto from '/kim-min-jae.png';
+import Modal from './Modal';
 import '../../style/range-slider.css';
 
-const MyCards = function () {
+const MyCards = function ({ myCards }) {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('100');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [myCardDetail, setMyCardDetail] = useState('');
 
   const handleInput = (e) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+
+  const handleModal = (id) => {
+    setModalOpen(true);
+    document.body.style.overflowY = 'hidden';
+    const clickedCard = myCards.filter((card) => card.id === id);
+    setMyCardDetail(clickedCard);
+  };
+  const closeModal = () => {
+    document.body.style.overflowY = 'scroll';
+    setModalOpen(false);
+  };
+
   return (
     <div className="mx-10 my-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
       <h5 className="text-lg font-bold uppercase leading-7">My Cards</h5>
@@ -155,20 +169,32 @@ const MyCards = function () {
             </div>
           </div>
         </div>
-        {/* my cards */}
-        <div className="flex gap-4">
-          <a
-            href="#"
-            className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
-          >
-            <img src={playerPhoto} className="w-full" alt="" />
-            <div className="flex items-center justify-center gap-4 px-4 pb-5">
-              <span className="text-base font-bold leading-6">€ 20.00</span>
-              <button className="btn-secondary">Sell</button>
-            </div>
-          </a>
+        <div className="flex cursor-pointer flex-wrap gap-4">
+          {Array.isArray(myCards)
+            ? myCards.map((card) => (
+                <div
+                  href="#"
+                  key={card.id}
+                  className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
+                  onClick={() => handleModal(card.id)}
+                >
+                  <img src={card.photoUrl} className="w-full" alt="" />
+                  <div className="flex items-center justify-center gap-4 px-4 pb-5">
+                    <span className="text-base font-bold leading-6">
+                      € {card.price}
+                    </span>
+                    <button className="btn-secondary">Buy</button>
+                  </div>
+                </div>
+              ))
+            : ''}
         </div>
       </div>
+      {isModalOpen ? (
+        <Modal handleModalClose={closeModal} cardDetail={myCardDetail} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
