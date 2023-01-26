@@ -1,4 +1,4 @@
-.react-swipe-container {
+.carousel {
   background: url(../../assets/bg-stadium.png);
   background-size: cover;
   position: relative;
@@ -6,7 +6,7 @@
   padding-bottom: 50px;
 }
 
-.react-swipe-container::before {
+.carousel::before {
   content: '';
   position: absolute;
   width: 100%;
@@ -15,4 +15,48 @@
   opacity: 0.7;
   top: 0;
   left: 0;
+}
+
+.alice-carousel__dots {
+  position: absolute;
+  bottom: 111.5px;
+  left: 345px;
+}
+
+.alice-carousel__prev-btn,
+.alice-carousel__next-btn {
+  position: relative;
+  bottom: 110px;
+  left: 287px;
+  width: 18px;
+  height: 18px;
+}
+
+.alice-carousel__next-btn {
+  left: 377px;
+}
+
+.alice-carousel__dots-item:not(.__custom) {
+  background-color: #fff;
+}
+
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #e8282b;
+}
+
+.alice-carousel__dots-item:not(.__custom):not(:last-child) {
+  margin-right: 4px;
+}
+
+.alice-carousel__prev-btn [data-area]::after {
+  width: 18px;
+  height: 18px;
+  content: url('/left-arrow-icon.svg');
+}
+
+.alice-carousel__next-btn [data-area]::after {
+  width: 18px;
+  height: 18px;
+  content: url('/right-arrow-icon.svg');
 }

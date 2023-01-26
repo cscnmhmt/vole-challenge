@@ -7,7 +7,7 @@ import walletIcon from '/wallet-icon.svg';
 import playerPhoto from '/kim-min-jae.png';
 import MultiRangeSlider from 'multi-range-slider-react';
 
-import './range-slider.css';
+import '../../style/range-slider.css';
 
 function StyleGuide() {
   const [minValue, setMinValue] = useState('0');
