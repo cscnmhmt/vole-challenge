@@ -4,14 +4,18 @@ import MultiRangeSlider from 'multi-range-slider-react';
 import '../../style/range-slider.css';
 import Pagination from './Pagination';
 import Modal from './Modal';
+import BuyModal from './BuyModal';
 
-const Market = function ({ cards, handleBuy }) {
+const Market = function ({ cards, handleBuying }) {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('100');
   const [isModalOpen, setModalOpen] = useState(false);
   const [cardDetail, setCardDetail] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage, setCardPerPage] = useState(10);
+
+  const [buyModal, setBuyModal] = useState(false);
+  const [clickedCard, setClickedCard] = useState('');
 
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
@@ -46,6 +50,16 @@ const Market = function ({ cards, handleBuy }) {
   const closeModal = () => {
     document.body.style.overflowY = 'scroll';
     setModalOpen(false);
+  };
+
+  const handleBuyModal = (id) => {
+    setBuyModal(true);
+    setClickedCard(cards.filter((card) => card.id === id));
+  };
+
+  const handleBuy = (id) => {
+    setBuyModal(false);
+    handleBuying(id);
   };
 
   return (
@@ -208,7 +222,7 @@ const Market = function ({ cards, handleBuy }) {
                       </span>
                       <button
                         className="btn-secondary"
-                        onClick={() => handleBuy(card.id)}
+                        onClick={() => handleBuyModal(card.id)}
                       >
                         Buy
                       </button>
@@ -236,6 +250,13 @@ const Market = function ({ cards, handleBuy }) {
           increaseNumber={increaseNumber}
           decreaseNumber={decreaseNumber}
         />
+        {buyModal ? (
+          <BuyModal
+            clickedCard={clickedCard}
+            handleBuy={handleBuy}
+            buyModalClose={() => setBuyModal(false)}
+          />
+        ) : null}
       </div>
     </div>
   );

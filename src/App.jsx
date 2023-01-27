@@ -27,14 +27,14 @@ function App() {
       });
   }, []);
 
-  const handleSell = (id) => {
+  const handleSelling = (id) => {
     const selledCard = myCards.filter((card) => card.id === id);
     setCards([...cards, ...selledCard]);
     setMyCards(myCards.filter((card) => card.id !== id));
     setBalance((currentBalance) => currentBalance + selledCard[0].price);
   };
 
-  const handleBuy = (id) => {
+  const handleBuying = (id) => {
     const boughtCard = cards.filter((card) => card.id === id);
     // if bought card price bigger than current balance then show alert
     if (boughtCard[0].price > balance) {
@@ -52,13 +52,13 @@ function App() {
       <HeroCarousel />
 
       <div className="container">
-        <MyCards myCards={myCards} handleSell={handleSell} />
+        <MyCards myCards={myCards} handleSelling={handleSelling} />
 
         {warningModal ? (
           <WarningModal closeWarningModal={() => setWarningModal(false)} />
         ) : null}
 
-        <Market cards={cards} handleBuy={handleBuy} />
+        <Market cards={cards} handleBuying={handleBuying} />
       </div>
     </div>
   );
