@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
 import downArrowIcon from '/down-arrow-icon.svg';
 import MultiRangeSlider from 'multi-range-slider-react';
-import Pagination from './Pagination';
-
 import '../../style/range-slider.css';
+import Pagination from './Pagination';
 import Modal from './Modal';
 
-const Market = function ({ cards }) {
+const Market = function ({ cards, handleBuy }) {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('100');
   const [isModalOpen, setModalOpen] = useState(false);
   const [cardDetail, setCardDetail] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardPerPage, setCardPerPage] = useState(10);
+
+  const indexOfLastCard = currentPage * cardPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardPerPage;
+  const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+
+  const paginate = (number) => {
+    setCurrentPage(number);
+  };
+
+  const increaseNumber = () => {
+    setCurrentPage(
+      (prevCurrentPage) => (prevCurrentPage = prevCurrentPage + 1)
+    );
+  };
+  const decreaseNumber = () => {
+    setCurrentPage(
+      (prevCurrentPage) => (prevCurrentPage = prevCurrentPage - 1)
+    );
+  };
 
   const handleInput = (e) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+
   const handleModal = (id) => {
     setModalOpen(true);
     document.body.style.overflowY = 'hidden';
@@ -170,21 +191,27 @@ const Market = function ({ cards }) {
               </div>
             </div>
           </div>
-          <div className="flex cursor-pointer flex-wrap gap-4">
-            {Array.isArray(cards)
-              ? cards.map((card) => (
+          <div className="grid  grid-cols-5 grid-rows-2 gap-6">
+            {Array.isArray(currentCards)
+              ? currentCards.map((card) => (
                   <div
                     href="#"
                     key={card.id}
-                    className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
-                    onClick={() => handleModal(card.id)}
+                    className="flex h-[346px] w-[198px] cursor-pointer flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
                   >
-                    <img src={card.photoUrl} className="w-full" alt="" />
+                    <div onClick={() => handleModal(card.id)}>
+                      <img src={card.photoUrl} className="w-full" alt="" />
+                    </div>
                     <div className="flex items-center justify-center gap-4 px-4 pb-5">
                       <span className="text-base font-bold leading-6">
-                        € {card.price}
+                        € {Number(card.price).toFixed(2)}
                       </span>
-                      <button className="btn-secondary">Buy</button>
+                      <button
+                        className="btn-secondary"
+                        onClick={() => handleBuy(card.id)}
+                      >
+                        Buy
+                      </button>
                     </div>
                   </div>
                 ))
@@ -192,11 +219,23 @@ const Market = function ({ cards }) {
           </div>
         </div>
         {isModalOpen ? (
-          <Modal handleModalClose={closeModal} cardDetail={cardDetail} />
+          <Modal
+            handleModalClose={closeModal}
+            cardDetail={cardDetail}
+            handleBuy={handleBuy}
+          />
         ) : (
           ''
         )}
-        <Pagination />
+        <Pagination
+          cards={cards}
+          cardPerPage={cardPerPage}
+          cardsLength={cards.length}
+          paginate={paginate}
+          currentPage={currentPage}
+          increaseNumber={increaseNumber}
+          decreaseNumber={decreaseNumber}
+        />
       </div>
     </div>
   );

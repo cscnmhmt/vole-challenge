@@ -2,7 +2,7 @@ import React from 'react';
 import closeIcon from '/close-icon.svg';
 import './Modal.css';
 
-const Modal = ({ handleModalClose, cardDetail }) => {
+const Modal = ({ handleModalClose, cardDetail, handleSell }) => {
   const [card] = cardDetail;
   const { attributes } = card;
 
@@ -29,8 +29,13 @@ const Modal = ({ handleModalClose, cardDetail }) => {
                 <p className="text-lg font-normal">{card.position}</p>
               </div>
               <div className="flex w-1/2 items-center justify-between rounded-base bg-sky-lighter p-6">
-                <h4>€ 20.00</h4>
-                <button className="btn-primary">Sell</button>
+                <h4>€ {Number(card.price).toFixed(2)}</h4>
+                <button
+                  className="btn-primary"
+                  onClick={() => handleSell(card.id)}
+                >
+                  Sell
+                </button>
               </div>
             </div>
             {/* middle */}

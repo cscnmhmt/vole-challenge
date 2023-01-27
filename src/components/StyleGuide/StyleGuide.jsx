@@ -4,7 +4,6 @@ import leftArrowIcon from '/left-arrow-icon.svg';
 import rightArrowIcon from '/right-arrow-icon.svg';
 import downArrowIcon from '/down-arrow-icon.svg';
 import walletIcon from '/wallet-icon.svg';
-import playerPhoto from '/kim-min-jae.png';
 import MultiRangeSlider from 'multi-range-slider-react';
 
 import '../../style/range-slider.css';

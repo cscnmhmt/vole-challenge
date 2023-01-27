@@ -3,7 +3,7 @@ import logo from '/logo.svg';
 import walletIcon from '/wallet-icon.svg';
 import './Header.css';
 
-const Header = function () {
+const Header = function ({ balance }) {
   return (
     <div className="sticky top-0 z-50">
       <header className="flex h-[122px] items-center  justify-between bg-ink-darkest py-11 px-16">
@@ -24,7 +24,7 @@ const Header = function () {
               <img src={walletIcon} alt="" />
             </div>
             <div className="flex items-center bg-ink-dark py-3 px-5 text-xl font-bold text-sky-white">
-              € 100.00
+              € {Number(balance).toFixed(2)}
             </div>
           </div>
         </div>

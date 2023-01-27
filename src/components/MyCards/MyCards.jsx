@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import downArrowIcon from '/down-arrow-icon.svg';
 import MultiRangeSlider from 'multi-range-slider-react';
-
 import Modal from './Modal';
 import '../../style/range-slider.css';
 
-const MyCards = function ({ myCards }) {
+const MyCards = function ({ myCards, handleSell }) {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('100');
   const [isModalOpen, setModalOpen] = useState(false);
@@ -28,9 +27,9 @@ const MyCards = function ({ myCards }) {
   };
 
   return (
-    <div className="mx-10 my-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
+    <div className="mx-10 my-[122px] flex flex-col items-start gap-6 rounded-base bg-sky-lighter p-6 ">
       <h5 className="text-lg font-bold uppercase leading-7">My Cards</h5>
-      <div className="flex gap-6">
+      <div className="flex items-start gap-6">
         {/* filter */}
         <div className="flex gap-4">
           <div className="flex min-w-[200px] flex-col rounded-base bg-sky-white px-6 py-2">
@@ -169,21 +168,29 @@ const MyCards = function ({ myCards }) {
             </div>
           </div>
         </div>
-        <div className="flex cursor-pointer flex-wrap gap-4">
+        <div className="grid grid-cols-5 grid-rows-2 gap-4">
+          {}
           {Array.isArray(myCards)
             ? myCards.map((card) => (
                 <div
                   href="#"
                   key={card.id}
-                  className="flex h-[346px] w-[198px] flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
-                  onClick={() => handleModal(card.id)}
+                  className="flex h-[346px] w-[198px] cursor-pointer  flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
                 >
-                  <img src={card.photoUrl} className="w-full" alt="" />
+                  <div onClick={() => handleModal(card.id)}>
+                    <img src={card.photoUrl} className="w-full" alt="" />
+                  </div>
+
                   <div className="flex items-center justify-center gap-4 px-4 pb-5">
                     <span className="text-base font-bold leading-6">
-                      € {card.price}
+                      € {Number(card.price).toFixed(2)}
                     </span>
-                    <button className="btn-secondary">Buy</button>
+                    <button
+                      className="btn-secondary"
+                      onClick={() => handleSell(card.id)}
+                    >
+                      Sell
+                    </button>
                   </div>
                 </div>
               ))
@@ -191,7 +198,11 @@ const MyCards = function ({ myCards }) {
         </div>
       </div>
       {isModalOpen ? (
-        <Modal handleModalClose={closeModal} cardDetail={myCardDetail} />
+        <Modal
+          handleModalClose={closeModal}
+          cardDetail={myCardDetail}
+          handleSell={handleSell}
+        />
       ) : (
         ''
       )}

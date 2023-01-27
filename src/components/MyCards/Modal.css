@@ -1,6 +1,9 @@
 .modal {
   position: fixed;
-  padding: 2rem 20rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   right: 0;
   z-index: 999;
