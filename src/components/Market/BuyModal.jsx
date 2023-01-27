@@ -7,7 +7,7 @@ const BuyModal = ({ clickedCard, handleBuy, buyModalClose }) => {
       <div className="modal-content">
         <div className="flex max-w-[400px] flex-col justify-between gap-4 rounded-base bg-sky-white px-5 py-6 pb-4 shadow-sm">
           <h4 className="text-center">
-            Would you like to sell the card for{' '}
+            Would you like to buy the card for{' '}
             <span className="text-red-base">
               € {clickedCard[0].price.toFixed(2)}
             </span>
