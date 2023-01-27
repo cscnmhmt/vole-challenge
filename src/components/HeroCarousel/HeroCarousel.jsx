@@ -10,6 +10,7 @@ import './HeroCarousel.css';
 import CarouselItem from './CarouselItem';
 
 const HeroCarousel = function () {
+  const CAROUSEL_INTERVAL = 6000;
   const [carouselItems, setCarouselItem] = useState([
     {
       title: 'Bronze Cards',
@@ -26,7 +27,7 @@ const HeroCarousel = function () {
   ]);
   return (
     <div className="carousel">
-      <AliceCarousel autoPlay autoPlayInterval="5000" infinite="true">
+      <AliceCarousel autoPlay autoPlayInterval={CAROUSEL_INTERVAL} infinite="true">
         {carouselItems.map((item, index) => {
           return <CarouselItem item={item} key={index} />;
         })}

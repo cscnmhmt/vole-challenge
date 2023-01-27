@@ -211,7 +211,7 @@ const Market = function ({ cards, handleBuying }) {
                   <div
                     href="#"
                     key={card.id}
-                    className="flex h-[346px] w-[198px] cursor-pointer flex-col justify-between  rounded-base bg-sky-white  hover:shadow-lg"
+                    className="flex h-[346px] w-[198px] cursor-pointer flex-col justify-between rounded-base  bg-sky-white shadow-sm  hover:shadow-lg"
                   >
                     <div onClick={() => handleModal(card.id)}>
                       <img src={card.photoUrl} className="w-full" alt="" />
@@ -236,7 +236,7 @@ const Market = function ({ cards, handleBuying }) {
           <Modal
             handleModalClose={closeModal}
             cardDetail={cardDetail}
-            handleBuy={handleBuy}
+            handleBuyModal={handleBuyModal}
           />
         ) : (
           ''

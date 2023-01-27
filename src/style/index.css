@@ -102,8 +102,14 @@
   .pagination-item--active {
     @apply flex h-8 w-8 items-center justify-center rounded-full bg-red-base text-lg font-bold text-sky-white;
   }
-  .icon-pagination {
-    @apply;
+  .gold-bg-gradient {
+    @apply bg-gradient-to-b from-[#A3873C] to-[#E3D294];
+  }
+  .silver-bg-gradient {
+    @apply bg-gradient-to-b from-[#808080] to-[#DFDFDF];
+  }
+  .bronze-bg-gradient {
+    @apply bg-gradient-to-b from-[#9C6D3E] to-[#E8C8A9];
   }
 }
 

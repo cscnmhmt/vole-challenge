@@ -20,11 +20,12 @@ const Pagination = function ({
     <div>
       <div className="flex w-full justify-center gap-4 rounded-base bg-sky-lighter p-4">
         <div className="pagination">
-          {currentPage > 1 ? (
-            <button className="mr-5" onClick={decreaseNumber}>
-              <img src={leftArrowIcon} alt="" />
-            </button>
-          ) : null}
+          <button
+            className={currentPage > 1 ? 'mr-5 opacity-100' : 'mr-5 opacity-0'}
+            onClick={decreaseNumber}
+          >
+            <img src={leftArrowIcon} alt="" />
+          </button>
 
           {pageNumbers.map((number) => (
             <button
@@ -39,11 +40,16 @@ const Pagination = function ({
               {number}
             </button>
           ))}
-          {currentPage < pageNumbers.length ? (
-            <button className="ml-5" onClick={increaseNumber}>
-              <img src={rightArrowIcon} alt="" />
-            </button>
-          ) : null}
+          <button
+            className={
+              currentPage < pageNumbers.length
+                ? 'ml-5 opacity-100'
+                : 'ml-5 opacity-0'
+            }
+            onClick={increaseNumber}
+          >
+            <img src={rightArrowIcon} alt="" />
+          </button>
         </div>
       </div>
     </div>

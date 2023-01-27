@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import closeIcon from '/close-icon.svg';
 import './Modal.css';
@@ -7,12 +7,30 @@ const Modal = ({ handleModalClose, cardDetail, handleSellModal }) => {
   const [card] = cardDetail;
   const { attributes } = card;
 
+  const [cardBackgroundClass, setCardBackgroudClass] = useState('');
+
+  useEffect(() => {
+    if (card.cardType === 'Gold') {
+      setCardBackgroudClass(
+        'gold-bg-gradient flex w-full items-center justify-center'
+      );
+    } else if (card.cardType === 'Silver') {
+      setCardBackgroudClass(
+        'silver-bg-gradient flex w-full items-center justify-center'
+      );
+    } else if (card.cardType === 'Bronze') {
+      setCardBackgroudClass(
+        'bronze-bg-gradient flex w-full items-center justify-center'
+      );
+    }
+  }, []);
+
   return createPortal(
     <div className="modal z-40">
       <div className="modal-content">
         <div className="relative flex max-h-[914px] w-[860px] flex-col items-center overflow-hidden overflow-y-auto rounded-base bg-sky-white shadow-sm">
           {/* banner */}
-          <div className="flex w-full items-center justify-center bg-sky-light">
+          <div className={cardBackgroundClass}>
             <img src={card.photoUrl} className="h-[382px]" alt="" />
           </div>
           {/* close icon */}

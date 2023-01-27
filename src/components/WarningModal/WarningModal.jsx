@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import './Market/Modal.css';
+import '../Market/Modal.css';
 
 const WarningModal = ({ closeWarningModal }) => {
   return createPortal(

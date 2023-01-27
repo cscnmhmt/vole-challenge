@@ -3,7 +3,7 @@ import HeroCarousel from './components/HeroCarousel/HeroCarousel';
 import Header from './components/Header/Header';
 import MyCards from './components/MyCards/MyCards';
 import Market from './components/Market/Market';
-import WarningModal from './components/WarningModal';
+import WarningModal from './components/WarningModal/WarningModal';
 
 function App() {
   const [balance, setBalance] = useState(100);
