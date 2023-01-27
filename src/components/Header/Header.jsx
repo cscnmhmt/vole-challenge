@@ -5,7 +5,7 @@ import './Header.css';
 
 const Header = function ({ balance }) {
   return (
-    <div className="sticky top-0 z-50">
+    <div className="sticky top-0 z-30">
       <header className="flex h-[122px] items-center  justify-between bg-ink-darkest py-11 px-16">
         <div className="flex items-center gap-[98px]">
           <img src={logo} alt="" />

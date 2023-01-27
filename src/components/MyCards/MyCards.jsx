@@ -237,7 +237,7 @@ const MyCards = function ({ myCards, handleSelling }) {
           <Modal
             handleModalClose={closeModal}
             cardDetail={myCardDetail}
-            handleSell={handleSell}
+            handleSellModal={handleSellModal}
           />
         ) : (
           ''
@@ -255,7 +255,7 @@ const MyCards = function ({ myCards, handleSelling }) {
           <SellModal
             clickedCard={clickedCard}
             handleSell={handleSell}
-            ModalClose={() => setSellModal(false)}
+            sellModalClose={() => setSellModal(false)}
           />
         ) : null}
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import closeIcon from '/close-icon.svg';
 import './Modal.css';
 
@@ -6,8 +7,8 @@ const Modal = ({ handleModalClose, cardDetail, handleBuy }) => {
   const [card] = cardDetail;
   const { attributes } = card;
 
-  return (
-    <div className="modal">
+  return createPortal(
+    <div className="modal z-40">
       <div className="modal-content">
         <div className="relative flex max-h-[914px] w-[860px] flex-col items-center overflow-hidden overflow-y-auto rounded-base bg-sky-white shadow-sm">
           {/* banner */}
@@ -72,7 +73,8 @@ const Modal = ({ handleModalClose, cardDetail, handleBuy }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('portal')
   );
 };
 

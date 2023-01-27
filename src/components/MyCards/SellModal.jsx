@@ -1,9 +1,10 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import '../Market/Modal.css';
 
 const SellModal = ({ clickedCard, handleSell, sellModalClose }) => {
-  return (
-    <div className="modal">
+  return createPortal(
+    <div className="modal z-50">
       <div className="modal-content">
         <div className="flex max-w-[400px] flex-col justify-between gap-4 rounded-base bg-sky-white px-5 py-6 pb-4 shadow-sm">
           <h4 className="text-center">
@@ -25,7 +26,8 @@ const SellModal = ({ clickedCard, handleSell, sellModalClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('portal')
   );
 };
 
