@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import downArrowIcon from '/down-arrow-icon.svg';
-import MultiRangeSlider from 'multi-range-slider-react';
-import '../../style/range-slider.css';
 import Pagination from './Pagination';
 import Modal from './Modal';
 import BuyModal from './BuyModal';
 import FilterMarket from './FilterMarket';
 
-const Market = function ({ cards, handleBuying }) {
-  const [minValue, setMinValue] = useState('0');
-  const [maxValue, setMaxValue] = useState('30');
+const Market = function ({ cards, handleBuying, 
+  cardTypesMarket,
+  cardPositionsMarket, }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [cardDetail, setCardDetail] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,8 +17,6 @@ const Market = function ({ cards, handleBuying }) {
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
   let currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
-
-  const cardTypes = ['Gold', 'Silver', 'Bronze'];
 
   const paginate = (number) => {
     setCurrentPage(number);
@@ -37,19 +32,6 @@ const Market = function ({ cards, handleBuying }) {
       (prevCurrentPage) => (prevCurrentPage = prevCurrentPage - 1)
     );
   };
-
-  const handleInput = (e) => {
-    setMinValue(e.minValue);
-    setMaxValue(e.maxValue);
-  };
-
-  useEffect(() => {
-    const filteredCards = [...cards].filter(
-      (card) => card.price <= maxValue && card.price >= minValue
-    );
-    currentCards = filteredCards;
-    console.log(currentCards);
-  }, [minValue, maxValue]);
 
   const handleModal = (id) => {
     setModalOpen(true);
@@ -78,7 +60,8 @@ const Market = function ({ cards, handleBuying }) {
         <h5 className="text-lg font-bold uppercase leading-7">Market</h5>
         <div className="flex items-start gap-6">
           {/* filter */}
-          <FilterMarket cards={cards} />
+          <FilterMarket cardTypesMarket={cardTypesMarket}
+          cardPositionsMarket={cardPositionsMarket} />
           <div className="grid  grid-cols-5 grid-rows-2 gap-6">
             {Array.isArray(currentCards)
               ? currentCards.map((card) => (

@@ -3,8 +3,14 @@ import Modal from './Modal';
 import SellModal from './SellModal';
 import Pagination from './Pagination';
 import FilterMyCards from './FilterMyCards';
+import { filter } from 'lodash';
 
-const MyCards = function ({ myCards, handleSelling }) {
+const MyCards = function ({
+  myCards,
+  handleSelling,
+  cardTypesMyCards,
+  cardPositionsMyCards,
+}) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [myCardDetail, setMyCardDetail] = useState('');
   const [sellModal, setSellModal] = useState(false);
@@ -37,6 +43,7 @@ const MyCards = function ({ myCards, handleSelling }) {
     const clickedCard = myCards.filter((card) => card.id === id);
     setMyCardDetail(clickedCard);
   };
+
   const closeModal = () => {
     document.body.style.overflowY = 'scroll';
     setModalOpen(false);
@@ -57,7 +64,10 @@ const MyCards = function ({ myCards, handleSelling }) {
       <div className="mx-10 my-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
         <h5 className="text-lg font-bold uppercase leading-7">My Cards</h5>
         <div className="flex items-start gap-6">
-          <FilterMyCards myCards={myCards} />
+          <FilterMyCards
+            cardTypesMyCards={cardTypesMyCards}
+            cardPositionsMyCards={cardPositionsMyCards}
+          />
 
           <div className="grid grid-cols-5 grid-rows-2 gap-4">
             {Array.isArray(currentMyCards)

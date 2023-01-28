@@ -45,3 +45,17 @@
 .multi-range-slider .thumb .caption * {
   display: none;
 }
+
+:is(.accordion__button, .accordion__panel) {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+}
+
+.accordion__button:hover {
+  background-color: transparent;
+}
+
+.accordion__button:before {
+  display: none;
+}

@@ -4,12 +4,20 @@ import Header from './components/Header/Header';
 import MyCards from './components/MyCards/MyCards';
 import Market from './components/Market/Market';
 import WarningModal from './components/WarningModal/WarningModal';
+import uniq from 'lodash/uniq';
+import _ from 'lodash';
 
 function App() {
   const [balance, setBalance] = useState(100);
   const [cards, setCards] = useState('');
   const [myCards, setMyCards] = useState('');
   const [warningModal, setWarningModal] = useState('');
+
+  const [cardTypesMyCards, setCardTypesMyCards] = useState(null);
+  const [cardPositionsMyCards, setCardPositionsMyCards] = useState(null);
+
+  const [cardTypesMarket, setCardTypesMarket] = useState(null);
+  const [cardPositionsMarket, setCardPositionsMarket] = useState(null);
 
   useEffect(() => {
     fetch('http://challenge.vole.io/cards/market')
@@ -24,6 +32,30 @@ function App() {
         setMyCards(data);
       });
   }, []);
+
+  // set card types and positions for my cards filtering
+  useEffect(() => {
+    const types = Array.isArray(myCards)
+      ? myCards.map((card) => card.cardType)
+      : null;
+    setCardTypesMyCards(uniq(types));
+    const positions = Array.isArray(myCards)
+      ? myCards.map((card) => card.position)
+      : null;
+    setCardPositionsMyCards(uniq(positions));
+  }, [myCards]);
+
+  // set card types and positions for market filtering
+  useEffect(() => {
+    const types = Array.isArray(cards)
+      ? cards.map((card) => card.cardType)
+      : null;
+    setCardTypesMarket(uniq(types));
+    const positions = Array.isArray(cards)
+      ? cards.map((card) => card.position)
+      : null;
+    setCardPositionsMarket(uniq(positions));
+  }, [cards]);
 
   const handleSelling = (id) => {
     const selledCard = myCards.filter((card) => card.id === id);
@@ -50,13 +82,23 @@ function App() {
       <HeroCarousel />
 
       <div className="container">
-        <MyCards myCards={myCards} handleSelling={handleSelling} />
+        <MyCards
+          myCards={myCards}
+          handleSelling={handleSelling}
+          cardTypesMyCards={cardTypesMyCards}
+          cardPositionsMyCards={cardPositionsMyCards}
+        />
 
         {warningModal ? (
           <WarningModal closeWarningModal={() => setWarningModal(false)} />
         ) : null}
 
-        <Market cards={cards} handleBuying={handleBuying} />
+        <Market
+          cards={cards}
+          handleBuying={handleBuying}
+          cardTypesMarket={cardTypesMarket}
+          cardPositionsMarket={cardPositionsMarket}
+        />
       </div>
     </div>
   );

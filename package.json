@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
+    "lodash.uniq": "^4.5.0",
     "multi-range-slider-react": "^2.0.2",
     "react": "^18.2.0",
+    "react-accessible-accordion": "^5.0.0",
     "react-alice-carousel": "^2.7.0",
     "react-dom": "^18.2.0",
     "swipe-js-iso": "^2.1.5"
