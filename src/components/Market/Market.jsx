@@ -4,9 +4,12 @@ import Modal from './Modal';
 import BuyModal from './BuyModal';
 import FilterMarket from './FilterMarket';
 
-const Market = function ({ cards, handleBuying, 
+const Market = function ({
+  cards,
+  handleBuying,
   cardTypesMarket,
-  cardPositionsMarket, }) {
+  cardPositionsMarket,
+}) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [cardDetail, setCardDetail] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,13 +58,15 @@ const Market = function ({ cards, handleBuying,
   };
 
   return (
-    <div className="relative">
+    <div className="relative" id="market">
       <div className="mx-10 mb-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
         <h5 className="text-lg font-bold uppercase leading-7">Market</h5>
         <div className="flex items-start gap-6">
           {/* filter */}
-          <FilterMarket cardTypesMarket={cardTypesMarket}
-          cardPositionsMarket={cardPositionsMarket} />
+          <FilterMarket
+            cardTypesMarket={cardTypesMarket}
+            cardPositionsMarket={cardPositionsMarket}
+          />
           <div className="grid  grid-cols-5 grid-rows-2 gap-6">
             {Array.isArray(currentCards)
               ? currentCards.map((card) => (

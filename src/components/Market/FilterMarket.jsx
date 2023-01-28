@@ -26,8 +26,16 @@ const FilterMyCards = ({ cardTypesMarket, cardPositionsMarket }) => {
           allowMultipleExpanded="true"
           allowZeroExpanded="true"
           className="border-0"
+          preExpanded={[
+            'type-filtering',
+            'position-filtering',
+            'price-filtering',
+          ]}
         >
-          <AccordionItem className="border-b border-sky-light py-4">
+          <AccordionItem
+            className="border-b border-sky-light py-4"
+            uuid={'type-filtering'}
+          >
             <AccordionItemHeading>
               <AccordionItemButton>
                 <button className="flex w-full items-center justify-between ">
@@ -62,7 +70,10 @@ const FilterMyCards = ({ cardTypesMarket, cardPositionsMarket }) => {
               </ul>
             </AccordionItemPanel>
           </AccordionItem>
-          <AccordionItem className="border-b border-sky-light py-4">
+          <AccordionItem
+            className="border-b border-sky-light py-4"
+            uuid={'position-filtering'}
+          >
             <AccordionItemHeading>
               <AccordionItemButton>
                 <button className="flex w-full items-center justify-between ">
@@ -97,36 +108,42 @@ const FilterMyCards = ({ cardTypesMarket, cardPositionsMarket }) => {
               </ul>
             </AccordionItemPanel>
           </AccordionItem>
-        </Accordion>
-        <div className="py-4">
-          <button className="flex w-full items-center justify-between">
-            <span className="text-base font-normal leading-6">Price</span>
-            <img src={downArrowIcon} alt="" />
-          </button>
-          <div className="mt-2">
-            <div className="range-slider">
-              <div className="flex items-center justify-between text-xs font-bold leading-3 text-red-base">
-                <span>€ {Number(minValue).toFixed(2)}</span>
-                <span>€ {Number(maxValue).toFixed(2)}</span>
+          <AccordionItem className="py-4" uuid={'price-filtering'}>
+            <AccordionItemHeading>
+              <AccordionItemButton>
+                <button className="flex w-full items-center justify-between">
+                  <span className="text-base font-normal leading-6">Price</span>
+                  <img src={downArrowIcon} alt="" />
+                </button>
+              </AccordionItemButton>
+            </AccordionItemHeading>
+            <AccordionItemPanel>
+              <div className="mt-2">
+                <div className="range-slider">
+                  <div className="flex items-center justify-between text-xs font-bold leading-3 text-red-base">
+                    <span>€ {Number(minValue).toFixed(2)}</span>
+                    <span>€ {Number(maxValue).toFixed(2)}</span>
+                  </div>
+                  <MultiRangeSlider
+                    min={0}
+                    max={30}
+                    step={1}
+                    minValue={minValue}
+                    maxValue={maxValue}
+                    onInput={(e) => {
+                      handleInput(e);
+                    }}
+                    label="false"
+                    ruler="false"
+                    barLeftColor="#E3E5E5"
+                    barInnerColor="#e8282b"
+                    barRightColor="#E3E5E5"
+                  />
+                </div>
               </div>
-              <MultiRangeSlider
-                min={0}
-                max={30}
-                step={1}
-                minValue={minValue}
-                maxValue={maxValue}
-                onInput={(e) => {
-                  handleInput(e);
-                }}
-                label="false"
-                ruler="false"
-                barLeftColor="#E3E5E5"
-                barInnerColor="#e8282b"
-                barRightColor="#E3E5E5"
-              />
-            </div>
-          </div>
-        </div>
+            </AccordionItemPanel>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );

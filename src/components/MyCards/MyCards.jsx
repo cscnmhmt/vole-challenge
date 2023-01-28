@@ -60,7 +60,7 @@ const MyCards = function ({
   };
 
   return (
-    <div className="relative">
+    <div id="my cards" className="relative">
       <div className="mx-10 my-[122px] flex flex-col gap-6 rounded-base bg-sky-lighter p-6 ">
         <h5 className="text-lg font-bold uppercase leading-7">My Cards</h5>
         <div className="flex items-start gap-6">

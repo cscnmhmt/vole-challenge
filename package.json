@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clsx": "^1.2.1",
     "lodash": "^4.17.21",
     "lodash.uniq": "^4.5.0",
     "multi-range-slider-react": "^2.0.2",
