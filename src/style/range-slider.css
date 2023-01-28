@@ -5,7 +5,7 @@
 }
 
 .multi-range-slider {
-  padding: 8px 5px;
+  padding: 10px 0px;
 }
 
 .multi-range-slider .thumb::before {
@@ -17,7 +17,14 @@
   box-shadow: none;
   border-radius: 50%;
   z-index: 1;
-  margin: -4px -8px;
+}
+
+.multi-range-slider .thumb-left::before {
+  margin: -4px 0px;
+}
+
+.multi-range-slider .thumb-right::before {
+  margin: -4px -12px;
 }
 
 .multi-range-slider .bar-right {

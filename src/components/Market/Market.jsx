@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import downArrowIcon from '/down-arrow-icon.svg';
 import MultiRangeSlider from 'multi-range-slider-react';
 import '../../style/range-slider.css';
 import Pagination from './Pagination';
 import Modal from './Modal';
 import BuyModal from './BuyModal';
+import FilterMarket from './FilterMarket';
 
 const Market = function ({ cards, handleBuying }) {
   const [minValue, setMinValue] = useState('0');
-  const [maxValue, setMaxValue] = useState('100');
+  const [maxValue, setMaxValue] = useState('30');
   const [isModalOpen, setModalOpen] = useState(false);
   const [cardDetail, setCardDetail] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage, setCardPerPage] = useState(10);
-
   const [buyModal, setBuyModal] = useState(false);
   const [clickedCard, setClickedCard] = useState('');
 
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
-  const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+  let currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+
+  const cardTypes = ['Gold', 'Silver', 'Bronze'];
 
   const paginate = (number) => {
     setCurrentPage(number);
@@ -40,6 +42,14 @@ const Market = function ({ cards, handleBuying }) {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+
+  useEffect(() => {
+    const filteredCards = [...cards].filter(
+      (card) => card.price <= maxValue && card.price >= minValue
+    );
+    currentCards = filteredCards;
+    console.log(currentCards);
+  }, [minValue, maxValue]);
 
   const handleModal = (id) => {
     setModalOpen(true);
@@ -68,143 +78,7 @@ const Market = function ({ cards, handleBuying }) {
         <h5 className="text-lg font-bold uppercase leading-7">Market</h5>
         <div className="flex items-start gap-6">
           {/* filter */}
-          <div className="flex gap-4">
-            <div className="flex min-w-[200px] flex-col rounded-base bg-sky-white px-6 py-2">
-              <div className="border-b border-sky-light py-4">
-                <button className="flex w-full items-center justify-between ">
-                  <span className="text-base font-normal leading-6">
-                    Card Type
-                  </span>
-                  <img src={downArrowIcon} alt="" />
-                </button>
-                <ul className="mt-4">
-                  <li>
-                    <input
-                      type="radio"
-                      name="Gold"
-                      id="gold"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="gold"
-                      className="text-base leading-6 text-ink-light"
-                    >
-                      Gold (12)
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="Gold"
-                      id="gold"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="gold"
-                      className="text-base font-bold leading-6 text-red-base"
-                    >
-                      Silver (12)
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="Gold"
-                      id="gold"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="gold"
-                      className="text-base leading-6 text-ink-light"
-                    >
-                      Gold (12)
-                    </label>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-sky-light py-4">
-                <button className="flex w-full items-center justify-between ">
-                  <span className="text-base font-normal leading-6">
-                    Position
-                  </span>
-                  <img src={downArrowIcon} alt="" />
-                </button>
-                <ul className="mt-4">
-                  <li>
-                    <input
-                      type="radio"
-                      name="Goalkeeper"
-                      id="goalkeeper"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="goalkeeper"
-                      className="text-base leading-6 text-ink-light"
-                    >
-                      Goalkeeper (4)
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="Goalkeeper"
-                      id="goalkeeper"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="goalkeeper"
-                      className="text-base leading-6 text-ink-light"
-                    >
-                      Goalkeeper (4)
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="Goalkeeper"
-                      id="goalkeeper"
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="goalkeeper"
-                      className="text-base leading-6 text-ink-light"
-                    >
-                      Goalkeeper (4)
-                    </label>
-                  </li>
-                </ul>
-              </div>
-              <div className="py-4">
-                <button className="flex w-full items-center justify-between">
-                  <span className="text-base font-normal leading-6">Price</span>
-                  <img src={downArrowIcon} alt="" />
-                </button>
-                <div className="mt-2">
-                  <div className="range-slider">
-                    <div className="flex items-center justify-between text-xs font-bold leading-3 text-red-base">
-                      <span>€ {Number(minValue).toFixed(2)}</span>
-                      <span>€ {Number(maxValue).toFixed(2)}</span>
-                    </div>
-                    <MultiRangeSlider
-                      min={0}
-                      max={100}
-                      step={1}
-                      minValue={minValue}
-                      maxValue={maxValue}
-                      onInput={(e) => {
-                        handleInput(e);
-                      }}
-                      label="false"
-                      ruler="false"
-                      barLeftColor="#e8282b"
-                      barInnerColor="#e8282b"
-                      barRightColor="#e8282b"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <FilterMarket cards={cards} />
           <div className="grid  grid-cols-5 grid-rows-2 gap-6">
             {Array.isArray(currentCards)
               ? currentCards.map((card) => (

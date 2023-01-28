@@ -40,6 +40,7 @@ const Pagination = function ({
               {number}
             </button>
           ))}
+
           <button
             className={
               currentPage < pageNumbers.length

@@ -17,9 +17,7 @@ function App() {
       .then((data) => {
         setCards(data);
       });
-  }, []);
 
-  useEffect(() => {
     fetch('http://challenge.vole.io/cards/myCards')
       .then((res) => res.json())
       .then((data) => {
