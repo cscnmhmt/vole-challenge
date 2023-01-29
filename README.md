@@ -2,8 +2,6 @@
 
 This project for Vole front-end app challenge.
 
-<!-- ![This is an image](/src/assets/meme-generator.png) -->
-
 ## Features
 
 - Gets a market and my cards from api
